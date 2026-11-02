@@ -243,6 +243,11 @@ public class ApiDialog extends BaseDialog {
 
     private void refreshQRCode() {
         String address = ControlManager.get().getAddress(false);
+        if (address.isEmpty()) {
+            tvAddress.setText("远程控制服务未启动");
+            ivQRCode.setVisibility(View.GONE);
+            return;
+        }
         tvAddress.setText(String.format("手机/电脑扫描上方二维码或者直接浏览器访问地址\n%s", address));
         ivQRCode.setImageBitmap(QRCodeGen.generateBitmap(address, AutoSizeUtils.mm2px(getContext(), 300), AutoSizeUtils.mm2px(getContext(), 300)));
     }
