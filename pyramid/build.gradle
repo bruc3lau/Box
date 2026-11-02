@@ -11,11 +11,11 @@ android {
         targetSdkVersion 28
 
         python {
-            buildPython("D:/Programs/Python/Python38/python.exe")
+            buildPython(project.findProperty("buildPython") ?: System.getenv("BUILD_PYTHON") ?: "python3")
             pip {
                 install "lxml"
                 install "ujson"
-                install "pyquery"
+                install "pyquery==1.4.3"
                 install "requests"
                 install "jsonpath"
                 install "cachetools"
