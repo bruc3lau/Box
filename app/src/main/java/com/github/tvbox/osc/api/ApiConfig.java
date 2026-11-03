@@ -491,14 +491,14 @@ public class ApiConfig {
 
                 } else {
 
-                    // if FongMi Live URL Formatting exists
-                    if (!lives.contains("type")) {
+                    // FongMi format carries url; TVBox txt format only carries group/channels
+                    JsonObject fengMiLives = infoJson.get("lives").getAsJsonArray().get(0).getAsJsonObject();
+                    if (!fengMiLives.has("url")) {
                         loadLives(infoJson.get("lives").getAsJsonArray());
                     } else {
-                        JsonObject fengMiLives = infoJson.get("lives").getAsJsonArray().get(0).getAsJsonObject();
                         Hawk.put(HawkConfig.LIVE_PLAYER_TYPE, DefaultConfig.safeJsonInt(fengMiLives, "playerType", -1));
                         // FongMi ignores type and loads url directly; support type 3 configs here too
-                        String url = fengMiLives.has("url") ? fengMiLives.get("url").getAsString() : "";
+                        String url = fengMiLives.get("url").getAsString();
 
                         // takagen99 : Getting EPG URL from File Config & put into Settings
                         if (fengMiLives.has("epg")) {
